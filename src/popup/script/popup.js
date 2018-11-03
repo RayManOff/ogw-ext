@@ -4,7 +4,7 @@ class PopupMessageClient extends MessageClient {
     }
 }
 
-class PopupInteracter {
+class PopupInteract {
     constructor () {
         this.toCopyBotton = document.getElementById('to_copy');
         this.toShortBotton = document.getElementById('to_short');
@@ -59,6 +59,6 @@ class PopupInteracter {
 }
 
 window.onload = () => {
-    let popupInteract = new PopupInteracter();
+    let popupInteract = new PopupInteract();
     popupInteract.init();
 };
