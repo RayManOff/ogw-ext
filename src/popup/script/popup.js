@@ -4,11 +4,60 @@ class PopupMessageClient extends MessageClient {
     }
 }
 
-chrome.tabs.query({active: true, currentWindow: true}, tabs => {
-    const currentTab = tabs[0];
-    (async () => {
-        const res = await PopupMessageClient.short([currentTab.url]);
-        document.getElementById('short_link').innerText = res.url_short;
-    })();
-});
+class PopupInteracter {
+    constructor () {
+        this.toCopyBotton = document.getElementById('to_copy');
+        this.toShortBotton = document.getElementById('to_short');
+        this.shortLinkNode = document.getElementById('short_link');
+        this.lonkLinkNode = document.getElementById('long_link');
+    }
 
+    init() {
+        let _this = this;
+        this.toCopyBotton.onclick = () => {
+            _this.copyShortLink();
+        };
+        this.toShortBotton.onclick = () => {
+            let link = _this.lonkLinkNode.value;
+            if (!link) {
+                console.log('There is no link');
+                return;
+            }
+            _this.shortLongLink(link);
+        };
+
+        chrome.tabs.query({active: true, currentWindow: true}, tabs => {
+            const currentTab = tabs[0];
+            _this.shortLongLink(currentTab.url);
+        });
+    }
+
+    copyShortLink() {
+        if (window.getSelection) {
+            let selection = window.getSelection();
+            let range = document.createRange();
+            range.selectNodeContents(this.shortLinkNode);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+
+        try {
+            document.execCommand('copy');
+            console.log('Short link has been copied');
+        } catch (err) {
+            console.log('Cannot to copy short link');
+        }
+    }
+
+    shortLongLink(url) {
+        (async () => {
+            const res = await PopupMessageClient.short([url]);
+            document.getElementById('short_link').innerText = res.url_short;
+        })();
+    }
+}
+
+window.onload = () => {
+    let popupInteract = new PopupInteracter();
+    popupInteract.init();
+};
