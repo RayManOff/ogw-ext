@@ -50,9 +50,10 @@ class PopupInteracter {
     }
 
     shortLongLink(url) {
+        let _this = this;
         (async () => {
             const res = await PopupMessageClient.short([url]);
-            document.getElementById('short_link').innerText = res.url_short;
+            _this.shortLinkNode.innerText = res.url_short;
         })();
     }
 }
