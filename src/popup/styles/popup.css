@@ -15,8 +15,8 @@ input:hover, input:focus {
     -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
 }
 
-label, #short_link {
-    margin-left: 10px;
+label, .links {
+    margin: 10px;
     color: #999999;
 }
 

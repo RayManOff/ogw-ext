@@ -9,7 +9,7 @@ class PopupInteract {
         this.toCopyBotton = document.getElementById('to_copy');
         this.toShortBotton = document.getElementById('to_short');
         this.shortLinkNode = document.getElementById('short_link');
-        this.lonkLinkNode = document.getElementById('long_link');
+        this.longLinkNode = document.getElementById('long_link');
     }
 
     init() {
@@ -18,12 +18,12 @@ class PopupInteract {
             _this.copyShortLink();
         };
         this.toShortBotton.onclick = () => {
-            let link = _this.lonkLinkNode.value;
-            if (!link) {
-                console.log('There is no link');
+            let longLink = _this.longLinkNode.value;
+            if (!longLink) {
+                console.log('There is no long link');
                 return;
             }
-            _this.shortLongLink(link);
+            _this.shortLongLink(longLink);
         };
 
         chrome.tabs.query({active: true, currentWindow: true}, tabs => {
